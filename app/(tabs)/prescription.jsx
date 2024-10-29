@@ -7,9 +7,16 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Modal,
 } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
-import { uploadPrescriptionFile, createPrescriptionRecord, getPrescriptions } from "../../lib/appwrite";
+import { 
+  uploadPrescriptionFile, 
+  createPrescriptionRecord, 
+  getPrescriptions, 
+  updatePrescriptionStatus, 
+  getFilePreview 
+} from "../../lib/appwrite";
 import { CustomButton } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
@@ -21,6 +28,8 @@ const PrescriptionUpload = () => {
     prescriptionFile: null,
     fileType: "",
   });
+  const [selectedImage, setSelectedImage] = useState(null); // State for modal image
+  const [isModalVisible, setModalVisible] = useState(false); // State for modal visibility
 
   useEffect(() => {
     if (user) fetchPrescriptions();
@@ -53,7 +62,8 @@ const PrescriptionUpload = () => {
   
       setForm({
         ...form,
-        prescriptionFile: selectedFile, // Pass the formatted file object
+        prescriptionFile: selectedFile,
+        fileType: selectedFile.mimeType,
       });
     } else {
       Alert.alert("Error", "No file selected.");
@@ -69,7 +79,7 @@ const PrescriptionUpload = () => {
     setUploading(true);
     try {
       // 1. Upload the file to the bucket
-      const fileId = await uploadPrescriptionFile(form.prescriptionFile, form.fileType);
+      const fileId = await uploadPrescriptionFile(form.prescriptionFile);
 
       // 2. Create a document in the `prescriptions` collection with file details
       await createPrescriptionRecord(user.$id, fileId, form.fileType);
@@ -82,6 +92,25 @@ const PrescriptionUpload = () => {
       setUploading(false);
       setForm({ prescriptionFile: null, fileType: "" });
     }
+  };
+
+  // Toggle status between Active and Inactive
+  const toggleStatus = async (prescription) => {
+    const newStatus = prescription.status === "active" ? "inactive" : "active";
+    try {
+      await updatePrescriptionStatus(prescription.$id, newStatus);
+      fetchPrescriptions(); // Refresh prescription list after toggle
+    } catch (error) {
+      console.error("Failed to toggle status:", error);
+      Alert.alert("Error", "Failed to update prescription status.");
+    }
+  };
+
+  // Open image in modal for a larger view
+  const openImageModal = (fileId) => {
+    const fullSizeImageUrl = getFilePreview(fileId); // Get full-size URL from storage
+    setSelectedImage(fullSizeImageUrl);
+    setModalVisible(true);
   };
 
   return (
@@ -117,39 +146,67 @@ const PrescriptionUpload = () => {
           isLoading={uploading}
         />
 
-        <View className="mt-7">
-          <Text className="text-xl text-white font-semibold">Active Prescriptions</Text>
-          <View className="flex-row flex-wrap">
-            {prescriptions.active.map((pres) => (
-              <TouchableOpacity key={pres.$id} onPress={() => {}}>
-                {pres.fileType === "application/pdf" ? (
-                  <Text className="text-blue-500 underline">View PDF</Text>
-                ) : (
-                  <Image
-                    source={{ uri: pres.fileId }} // Adjust based on how getFilePreview returns URL
-                    className="w-24 h-24 rounded-lg m-2"
-                  />
-                )}
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          <Text className="text-xl text-white font-semibold mt-5">Inactive Prescriptions</Text>
-          <View className="flex-row flex-wrap">
-            {prescriptions.inactive.map((pres) => (
-              <TouchableOpacity key={pres.$id} onPress={() => {}}>
-                {pres.fileType === "application/pdf" ? (
-                  <Text className="text-blue-500 underline">View PDF</Text>
-                ) : (
-                  <Image
-                    source={{ uri: pres.fileId }} // Adjust based on how getFilePreview returns URL
-                    className="w-24 h-24 rounded-lg m-2"
-                  />
-                )}
-              </TouchableOpacity>
-            ))}
-          </View>
+        {/* Active Prescriptions Heading */}
+        <View className="my-5 p-3 bg-gray-700 rounded-lg">
+          <Text className="text-xl text-white font-semibold text-center">Active Prescriptions</Text>
         </View>
+        <View className="flex-row flex-wrap justify-center">
+          {prescriptions.active.map((pres) => (
+            <View key={pres.$id} className="m-2 items-center">
+              <TouchableOpacity onPress={() => openImageModal(pres.fileId)}>
+                <Image
+                  source={{ uri: getFilePreview(pres.fileId, pres.fileType) }} // Thumbnail preview
+                  className="w-24 h-24 rounded-lg"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => toggleStatus(pres)}
+                className="mt-2 bg-red-600 px-3 py-1 rounded"
+              >
+                <Text className="text-white">Set Inactive</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+
+        {/* Inactive Prescriptions Heading */}
+        <View className="my-5 p-3 bg-gray-700 rounded-lg">
+          <Text className="text-xl text-white font-semibold text-center">Inactive Prescriptions</Text>
+        </View>
+        <View className="flex-row flex-wrap justify-center">
+          {prescriptions.inactive.map((pres) => (
+            <View key={pres.$id} className="m-2 items-center">
+              <TouchableOpacity onPress={() => openImageModal(pres.fileId)}>
+                <Image
+                  source={{ uri: getFilePreview(pres.fileId, pres.fileType) }} // Thumbnail preview
+                  className="w-24 h-24 rounded-lg"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => toggleStatus(pres)}
+                className="mt-2 bg-green-600 px-3 py-1 rounded"
+              >
+                <Text className="text-white">Set Active</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+
+        {/* Modal to display full-sized image */}
+        <Modal visible={isModalVisible} transparent={true} onRequestClose={() => setModalVisible(false)}>
+          <View className="flex-1 justify-center items-center bg-black bg-opacity-75">
+            <TouchableOpacity onPress={() => setModalVisible(false)} className="absolute top-5 right-5">
+              <Text className="text-white text-xl">X</Text>
+            </TouchableOpacity>
+            {selectedImage && (
+              <Image
+                source={{ uri: selectedImage }}
+                resizeMode="contain"
+                className="w-3/4 h-3/4"
+              />
+            )}
+          </View>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
