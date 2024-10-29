@@ -141,8 +141,11 @@ const PrescriptionUpload = () => {
 
         <CustomButton
           title="Submit Prescription"
-          handlePress={submitPrescription}
-          containerStyles="mt-7"
+          handlePress={submitPrescription
+
+          }
+          containerStyles="bg-[#ffa300] rounded-2xl "
+          textStyles="px-7 py-4 text-2xl font-rmedium text-center"
           isLoading={uploading}
         />
 
