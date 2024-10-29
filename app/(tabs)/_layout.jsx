@@ -61,15 +61,15 @@ const TabLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="bookmar"
+          name="medicalrecord"
           options={{
-            title: "Bookmar",
+            title: "medicalrecord",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark}
+                icon={icons.data}
                 color={color}
-                name="Meeting "
+                name="medicalrecord"
                 focused={focused}
               />
             ),
