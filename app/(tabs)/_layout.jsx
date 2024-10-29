@@ -106,6 +106,21 @@ const TabLayout = () => {
             ),
           }}
         />
+        <Tabs.Screen
+          name="prescription"
+          options={{
+            title: "prescription",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.plus}
+                color={color}
+                name="prescription"
+                focused={focused}
+              />
+            ),
+          }}
+        />
       </Tabs>
 
       <Loader isLoading={loading} />
