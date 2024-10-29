@@ -5,8 +5,7 @@ import path from "../assets/images/path.png";
 import logo from "../assets/images/logo.png";
 import logoSmall from "../assets/images/logo-small.png";
 import empty from "../assets/images/empty.png";
-import index1 from "../assets/images/index1.jpeg";
-import index2 from "../assets/images/index2.jpeg";
+import indexImg from "../assets/images/indexImg.jpg";
 
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty, indexImg };
 
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty, index1, index2 };

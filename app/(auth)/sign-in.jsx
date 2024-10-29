@@ -7,6 +7,7 @@ import { images } from "../../constants";
 import { CustomButton, FormField } from "../../components";
 import { getCurrentUser, signIn } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import { StatusBar } from "expo-status-bar";
 
 const SignIn = () => {
   const { setUser, setIsLogged } = useGlobalContext();
@@ -39,59 +40,49 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <ScrollView>
-        <View
-          className="w-full flex justify-center h-full px-4 my-6"
-          style={{
-            minHeight: Dimensions.get("window").height - 100,
-          }}
-        >
-          <Image
-            source={images.logo}
-            resizeMode="contain"
-            className="w-[115px] h-[34px]"
-          />
+    <SafeAreaView className="flex-1 bg-white">
+      <View className="mt-48 items-center justify-center">
+        <Text className="text-center font-rbold text-5xl ">
+          Sign In
+        </Text>
+      </View>
 
-          <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to Aora
-          </Text>
+      <View className="mt-36">
+        <FormField
+          mainView="mt-10"
+          title="Email"
+          value={`${form.email}`}
+          containerStyles="w-[30vh] bg-gray-400 justify-center px-4 py-2 mt-2 ml-[80px]"
+          handleChangeText={(e) => {setForm({...form, email: e})} }
+          placeHolder="Enter your email"
+          keyboardType="email"
+        />
 
-          <FormField
-            title="Email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
-            otherStyles="mt-7"
-            keyboardType="email-address"
-          />
+        <FormField
+          mainView="mt-10"
+          title="Password"
+          value={`${form.password}`}
+          containerStyles="w-[30vh] bg-gray-400 justify-center px-4 py-2 mt-2 ml-[80px]"
+          handleChangeText={(e) => {setForm({...form, password: e})} }
+          placeHolder="Enter your password"
+          keyboardType="password"
+        />
+      </View>
 
-          <FormField
-            title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-7"
-          />
-
-          <CustomButton
-            title="Sign In"
-            handlePress={submit}
-            containerStyles="mt-7"
-            isLoading={isSubmitting}
-          />
-
-          <View className="flex justify-center pt-5 flex-row gap-2">
-            <Text className="text-lg text-gray-100 font-pregular">
-              Don't have an account?
-            </Text>
-            <Link
-              href="/sign-up"
-              className="text-lg font-psemibold text-secondary"
-            >
-              Signup
-            </Link>
-          </View>
+      <View className="items-center justify-end flex-1 mb-36">
+        <CustomButton 
+          handlePress={submit}
+          title="Sign In"
+          containerStyles="bg-[#816EB4] rounded-2xl"
+          textStyles="px-7 py-4 text-2xl font-rmedium"
+          isLoading={isSubmitting}
+        />
+        <View className="flex-row mt-5">
+          <Text className="font-rregular text-[16px]">Don't have a account? </Text>
+          <Link href="sign-up" className="font-rbold text-[16px]">Sign Up</Link>
         </View>
-      </ScrollView>
+      </View>
+      <StatusBar barStyle="dark-content"/>
     </SafeAreaView>
   );
 };

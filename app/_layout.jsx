@@ -10,16 +10,21 @@ SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({
-    "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
-    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
-    "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
-    "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
-    "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
-    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
-    "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
-  });
+    "RobotoMonoBold": require("../assets/fonts/RobotoMono-Bold.ttf"),
+    "RobotoMonoBoldItalic": require("../assets/fonts/RobotoMono-BoldItalic.ttf"),
+    "RobotoMonoExtraLight": require("../assets/fonts/RobotoMono-ExtraLight.ttf"),
+    "RobotoMonoExtraLightItalic": require("../assets/fonts/RobotoMono-ExtraLightItalic.ttf"),
+    "RobotoMonoItalic": require("../assets/fonts/RobotoMono-Italic.ttf"),
+    "RobotoMonoLight": require("../assets/fonts/RobotoMono-Light.ttf"),
+    "RobotoMonoLightItalic": require("../assets/fonts/RobotoMono-LightItalic.ttf"),
+    "RobotoMonoMedium": require("../assets/fonts/RobotoMono-Medium.ttf"),
+    "RobotoMonoMediumItalic": require("../assets/fonts/RobotoMono-MediumItalic.ttf"),
+    "RobotoMonoRegular": require("../assets/fonts/RobotoMono-Regular.ttf"),
+    "RobotoMonoSemiBold": require("../assets/fonts/RobotoMono-SemiBold.ttf"),
+    "RobotoMonoSemiBoldItalic": require("../assets/fonts/RobotoMono-SemiBoldItalic.ttf"),
+    "RobotoMonoThin": require("../assets/fonts/RobotoMono-Thin.ttf"),
+    "RobotoMonoThinItalic": require("../assets/fonts/RobotoMono-ThinItalic.ttf"),
+});
 
   useEffect(() => {
     if (error) throw error;

@@ -69,7 +69,7 @@ const TabLayout = () => {
               <TabIcon
                 icon={icons.bookmark}
                 color={color}
-                name="Meeting"
+                name="Meeting "
                 focused={focused}
               />
             ),
