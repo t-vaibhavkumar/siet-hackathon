@@ -13,55 +13,25 @@ const Welcome = () => {
   if (!loading && isLogged) return <Redirect href="/home" />;
 
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <Loader isLoading={loading} />
-
-      <ScrollView
-        contentContainerStyle={{
-          height: "100%",
-        }}
-      >
-        <View className="w-full flex justify-center items-center h-full px-4">
-          <Image
-            source={images.logo}
-            className="w-[130px] h-[84px]"
-            resizeMode="contain"
-          />
-
-          <Image
-            source={images.cards}
-            className="max-w-[380px] w-full h-[298px]"
-            resizeMode="contain"
-          />
-
-          <View className="relative mt-5">
-            <Text className="text-3xl text-white font-bold text-center">
-              Discover Endless{"\n"}
-              Possibilities with{" "}
-              <Text className="text-secondary-200">Aora</Text>
-            </Text>
-
-            <Image
-              source={images.path}
-              className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
-              resizeMode="contain"
-            />
-          </View>
-
-          <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora
-          </Text>
-
-          <CustomButton
-            title="Continue with Email"
-            handlePress={() => router.push("/sign-in")}
-            containerStyles="w-full mt-7"
-          />
-        </View>
-      </ScrollView>
-
-      <StatusBar backgroundColor="#161622" style="light" />
+    <SafeAreaView className="flex-1 justify-center items-center bg-[#FFFFFF]">
+      <View className="absolute top-36">
+        <Image source={images.indexImg} className="w-[48vh] h-[35vh] resize-contain"/>
+      </View>
+      <View>
+        <Text className="font-rbold text-2xl text-center mt-12 p-4">Your Complete Health Care Companion App</Text>
+        <Text className="font-rbolditalic text-4xl text-center absolute top-[20vh] right-[10vh]">HealthSync</Text>
+      </View>
+      <View className="absolute bottom-[150px]">
+        <CustomButton
+          title="Continue wiht email"
+          containerStyles="rounded-2xl bg-[#927ccc] opacity"
+          textStyles="px-7 py-6 text-xl font-rmedium text-gray-200"
+          handlePress={()=>{
+            router.push("sign-in")
+          }}
+        />
+      </View> 
+      <StatusBar barStyle="dark-content"/>
     </SafeAreaView>
   );
 };

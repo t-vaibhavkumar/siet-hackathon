@@ -7,6 +7,7 @@ import { images } from "../../constants";
 import { createUser } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import { StatusBar } from "expo-status-bar";
 
 const SignUp = () => {
   const { setUser, setIsLogged } = useGlobalContext();
@@ -16,6 +17,7 @@ const SignUp = () => {
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const submit = async () => {
@@ -38,66 +40,70 @@ const SignUp = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="flex-1 bg-white">
       <ScrollView>
-        <View
-          className="w-full flex justify-center h-full px-4 my-6"
-          style={{
-            minHeight: Dimensions.get("window").height - 100,
-          }}
-        >
-          <Image
-            source={images.logo}
-            resizeMode="contain"
-            className="w-[115px] h-[34px]"
-          />
+      <View className="mt-44 items-center justify-center">
+        <Text className="absolute bottom-[7vh] text-center font-rbold text-5xl ">
+          Sign Up
+        </Text>
+      </View>
 
-          <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Sign Up to Aora
-          </Text>
+      <View className="">
+        <FormField
+          mainView="mt-10"
+          title="Username"
+          value={`${form.username}`}
+          containerStyles="w-[30vh] bg-gray-400 justify-center px-4 py-2 mt-2 ml-[80px]"
+          handleChangeText={(e) => {setForm({...form, username: e})} }
+          placeHolder="Enter your username"
+          // keyboardType="email"
+        />
 
-          <FormField
-            title="Username"
-            value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e })}
-            otherStyles="mt-10"
-          />
+        <FormField
+          mainView="mt-10"
+          title="Email"
+          value={`${form.email}`}
+          containerStyles="w-[30vh] bg-gray-400 justify-center px-4 py-2 mt-2 ml-[80px]"
+          handleChangeText={(e) => {setForm({...form, email: e})} }
+          placeHolder="Enter your email"
+          keyboardType="email"
+        />
 
-          <FormField
-            title="Email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
-            otherStyles="mt-7"
-            keyboardType="email-address"
-          />
+        <FormField
+          mainView="mt-10"
+          title="Password"
+          value={`${form.password}`}
+          containerStyles="w-[30vh] bg-gray-400 justify-center px-4 py-2 mt-2 ml-[80px]"
+          handleChangeText={(e) => {setForm({...form, password: e})} }
+          placeHolder="Enter your password"
+          keyboardType="password"
+        />
+        <FormField
+          mainView="mt-10"
+          title="Confirm Password"
+          value={`${form.confirmPassword}`}
+          containerStyles="w-[30vh] bg-gray-400 justify-center px-4 py-2 mt-2 ml-[80px]"
+          handleChangeText={(e) => {setForm({...form, confirmPassword: e})} }
+          placeHolder="Confirm your password"
+          keyboardType="password"
+        />
+      </View>
 
-          <FormField
-            title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-7"
-          />
-
-          <CustomButton
-            title="Sign Up"
-            handlePress={submit}
-            containerStyles="mt-7"
-            isLoading={isSubmitting}
-          />
-
-          <View className="flex justify-center pt-5 flex-row gap-2">
-            <Text className="text-lg text-gray-100 font-pregular">
-              Have an account already?
-            </Text>
-            <Link
-              href="/sign-in"
-              className="text-lg font-psemibold text-secondary"
-            >
-              Login
-            </Link>
-          </View>
+      <View className="items-center justify-end flex-1 mt-12">
+        <CustomButton 
+          handlePress={submit}
+          title="Sign Up"
+          containerStyles="bg-[#816EB4] rounded-2xl"
+          textStyles="px-7 py-4 text-2xl font-rmedium"
+          isLoading={isSubmitting}
+        />
+        <View className="flex-row mt-5">
+          <Text className="font-rregular text-[16px]">Already have a account? </Text>
+          <Link href="signIn" className="font-rbold text-[16px]">Sign In</Link>
         </View>
+      </View>
       </ScrollView>
+      <StatusBar barStyle="dark-content"/>
     </SafeAreaView>
   );
 };
