@@ -8,3 +8,4 @@ import empty from "../assets/images/empty.png";
 import indexImg from "../assets/images/indexImg.jpg";
 
 export default { profile, thumbnail, cards, path, logo, logoSmall, empty, indexImg };
+
