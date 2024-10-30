@@ -75,9 +75,9 @@ const Charts = () => {
   if (error) return <Text>{error}</Text>;
 
   return (
-    <SafeAreaView className="px-4 my-6 bg-primary h-full">
+    <SafeAreaView className="px-4 my-6 h-full">
       <ScrollView>
-        <Text className="flex-1 justify-center items-center text-white">
+        <Text className="flex-1 justify-center items-center text-black font-rregular">
           Charts
         </Text>
         {/* <View className="flex-row">

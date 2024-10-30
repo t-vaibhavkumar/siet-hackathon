@@ -75,6 +75,8 @@ const TabLayout = () => {
                 name="Charts"
 
                 focused={focused}
+                size={55}
+
               />
             ),
           }}
