@@ -23,7 +23,7 @@ const Welcome = () => {
       </View>
       <View className="absolute bottom-[150px]">
         <CustomButton
-          title="Continue wiht email"
+          title="Continue with email"
           containerStyles="rounded-2xl bg-[#927ccc] opacity"
           textStyles="px-7 py-6 text-xl font-rmedium text-gray-200"
           handlePress={()=>{

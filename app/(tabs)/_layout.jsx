@@ -61,15 +61,19 @@ const TabLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="medicalrecord"
+
+          name="charts"
           options={{
-            title: "medicalrecord",
+            title: "Charts",
+
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.data}
                 color={color}
-                name="medicalrecord"
+
+                name="Charts"
+
                 focused={focused}
               />
             ),

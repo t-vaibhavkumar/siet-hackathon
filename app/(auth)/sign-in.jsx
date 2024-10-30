@@ -30,7 +30,7 @@ const SignIn = () => {
       setUser(result);
       setIsLogged(true);
 
-      Alert.alert("Success", "User signed in successfully");
+      // Alert.alert("Success", "User signed in successfully");
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
@@ -70,7 +70,7 @@ const SignIn = () => {
           />
         </View>
 
-        <View className="items-center justify-end flex-1 mb-36">
+        <View className="items-center justify-end flex-1 mt-14">
           <CustomButton 
             handlePress={submit}
             title="Sign In"
