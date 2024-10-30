@@ -77,8 +77,10 @@ const Charts = () => {
   return (
     <SafeAreaView className="px-4 my-6 bg-primary h-full">
       <ScrollView>
-        {/* BP Input Section */}
-        <View className="flex-row">
+        <Text className="flex-1 justify-center items-center text-white">
+          Charts
+        </Text>
+        {/* <View className="flex-row">
           <Text className="absolute text-white font-rregular">Enter BP:</Text>
           <View>
             <FormField
@@ -102,10 +104,9 @@ const Charts = () => {
               textStyles="text-center font-rbold items-center justify-center text-xl"
             />
           </View>
-        </View>
+        </View> */}
 
-        {/* BP Chart */}
-        <View className="w-full h-[20vh] bg-red-300 rounded-xl my-8">
+        {/* <View className="w-full h-[20vh] bg-red-300 rounded-xl my-8">
           <Text className="text-white font-bold text-lg mb-2">Blood Pressure Over Time</Text>
           <LineChart
             data={{
@@ -139,7 +140,6 @@ const Charts = () => {
           />
         </View>
 
-        {/* Blood Sugar Input Section */}
         <View className="flex-row">
           <Text className="absolute text-white font-rregular">Enter Blood Sugar:</Text>
           <View>
@@ -159,7 +159,6 @@ const Charts = () => {
           </View>
         </View>
 
-        {/* Blood Sugar Chart */}
         <View className="w-full h-[20vh] bg-red-300 rounded-xl my-8">
           <Text className="text-white font-bold text-lg mb-2">Blood Sugar Over Time</Text>
           <LineChart
@@ -186,7 +185,7 @@ const Charts = () => {
             }}
             style={{ marginVertical: 8, borderRadius: 16 }}
           />
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   );
