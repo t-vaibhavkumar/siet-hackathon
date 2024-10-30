@@ -46,10 +46,10 @@ const Profile = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="h-full">
       <ScrollView className="px-4 my-6" keyboardShouldPersistTaps="handled">
         {/* Logout Button */}
-        <TouchableOpacity onPress={logout} className="flex w-full items-end mb-8">
+        <TouchableOpacity onPress={logout} className="absolute left-[40vh]">
           <Image source={icons.logout} resizeMode="contain" className="w-6 h-6" />
         </TouchableOpacity>
 
@@ -61,15 +61,13 @@ const Profile = () => {
           <InfoBox 
             title={user?.username} 
             containerStyles="mt-2" 
-            titleStyles="text-lg text-white font-semibold" 
+            titleStyles="text-lg text-black font-semibold" 
           />
         </View>
 
-        {/* Medical Information Section */}
         <View className="w-full px-4">
-          <Text className="text-lg font-semibold text-white mb-4 underline">Medical Information</Text>
+          <Text className="text-lg font-semibold text-black mb-4 underline font-rmedium">Medical Information</Text>
 
-          {/* Editable Fields */}
           {isEditing ? (
             <>
               <TextInputField
@@ -108,11 +106,11 @@ const Profile = () => {
             </>
           ) : (
             <>
-              <Text className="text-base text-white mt-2">Blood Type: {medicalInfo.bloodType}</Text>
-              <Text className="text-base text-white mt-2">Allergies/Medical Condition: {medicalInfo.medicalConditions}</Text>
-              <Text className="text-base text-white mt-2">Height: {medicalInfo.height} cm</Text>
-              <Text className="text-base text-white mt-2">Weight: {medicalInfo.weight} kg</Text>
-              <Text className="text-base text-white mt-2">Emergency Contact: {medicalInfo.emergencyContact}</Text>
+              <Text className="text-black mt-2 font-rmedium" >Blood Type: {medicalInfo.bloodType}</Text>
+              <Text className="text-black mt-2 font-rmedium">Allergies/Medical Condition: {medicalInfo.medicalConditions}</Text>
+              <Text className="text-black mt-2 font-rmedium">Height: {medicalInfo.height} cm</Text>
+              <Text className="text-black mt-2 font-rmedium">Weight: {medicalInfo.weight} kg</Text>
+              <Text className="text-black mt-2 font-rmedium">Emergency Contact: {medicalInfo.emergencyContact}</Text>
             </>
           )}
         </View>
@@ -132,9 +130,9 @@ const Profile = () => {
 // Custom reusable input field component for a cleaner layout
 const TextInputField = ({ label, value, onChangeText, placeholder, keyboardType = "default" }) => (
   <View className="mb-4">
-    <Text className="text-base text-white mb-1">{label}</Text>
+    <Text className="text-base text-black font-rregular mb-1">{label}</Text>
     <TextInput
-      style={{ backgroundColor: 'white', padding: 10, borderRadius: 8 }}
+      style={{ backgroundColor: 'white', padding: 10, borderRadius: 8, fontStyle:'RobotoMonoBold' }}
       value={value}
       onChangeText={onChangeText}
       placeholder={placeholder}

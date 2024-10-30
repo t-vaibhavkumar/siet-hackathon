@@ -114,26 +114,28 @@ const PrescriptionUpload = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className=" h-full">
       <ScrollView className="px-4 my-6">
-        <Text className="text-2xl text-white font-semibold">Upload Prescription</Text>
+        <Text className="text-2xl text-black font-rbold">Upload Prescription</Text>
 
         <View className="mt-7 space-y-2">
-          <Text className="text-base text-gray-100">Prescription File</Text>
+          <Text className="text-base text-black font-rmedium">Prescription File</Text>
           <TouchableOpacity onPress={openPicker}>
             {form.prescriptionFile ? (
               form.fileType === "application/pdf" ? (
-                <Text className="text-blue-500 underline">View PDF</Text>
+                <Text className="text-blue-500 underline font-rregular">View PDF</Text>
               ) : (
-                <Image
-                  source={{ uri: form.prescriptionFile.uri }}
-                  resizeMode="cover"
-                  className="w-full h-64 rounded-2xl"
-                />
+                form.prescriptionFile.uri && ( // Check for valid URI
+                  <Image
+                    source={{ uri: form.prescriptionFile.uri }}
+                    resizeMode="cover"
+                    className="w-full h-64 rounded-2xl"
+                  />
+                )
               )
             ) : (
-              <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 flex justify-center items-center">
-                <Text className="text-sm text-gray-100">Choose a file</Text>
+              <View className="w-full h-16 px-4 bg-gray-100 rounded-2xl border-2 border-black-200 flex justify-center items-center">
+                <Text className="text-sm text-black-100 font-rmedium">Choose a file</Text>
               </View>
             )}
           </TouchableOpacity>
@@ -141,32 +143,32 @@ const PrescriptionUpload = () => {
 
         <CustomButton
           title="Submit Prescription"
-          handlePress={submitPrescription
-
-          }
-          containerStyles="bg-[#ffa300] rounded-2xl "
+          handlePress={submitPrescription}
+          containerStyles="bg-[#ffa300] rounded-2xl mt-6"
           textStyles="px-7 py-4 text-2xl font-rmedium text-center"
           isLoading={uploading}
         />
 
         {/* Active Prescriptions Heading */}
         <View className="my-5 p-3 bg-gray-700 rounded-lg">
-          <Text className="text-xl text-white font-semibold text-center">Active Prescriptions</Text>
+          <Text className="text-xl text-white font-semibold text-center font-rbold">Active Prescriptions</Text>
         </View>
         <View className="flex-row flex-wrap justify-center">
           {prescriptions.active.map((pres) => (
             <View key={pres.$id} className="m-2 items-center">
               <TouchableOpacity onPress={() => openImageModal(pres.fileId)}>
-                <Image
-                  source={{ uri: getFilePreview(pres.fileId, pres.fileType) }} // Thumbnail preview
-                  className="w-24 h-24 rounded-lg"
-                />
+                {getFilePreview(pres.fileId, pres.fileType) && ( // Check if file URI exists
+                  <Image
+                    source={{ uri: getFilePreview(pres.fileId, pres.fileType) }} // Thumbnail preview
+                    className="w-24 h-24 rounded-lg"
+                  />
+                )}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => toggleStatus(pres)}
                 className="mt-2 bg-red-600 px-3 py-1 rounded"
               >
-                <Text className="text-white">Set Inactive</Text>
+                <Text className="text-white font-rbold">Set Inactive</Text>
               </TouchableOpacity>
             </View>
           ))}
@@ -174,22 +176,24 @@ const PrescriptionUpload = () => {
 
         {/* Inactive Prescriptions Heading */}
         <View className="my-5 p-3 bg-gray-700 rounded-lg">
-          <Text className="text-xl text-white font-semibold text-center">Inactive Prescriptions</Text>
+          <Text className="text-xl text-white font-rbold text-center">Inactive Prescriptions</Text>
         </View>
         <View className="flex-row flex-wrap justify-center">
           {prescriptions.inactive.map((pres) => (
             <View key={pres.$id} className="m-2 items-center">
               <TouchableOpacity onPress={() => openImageModal(pres.fileId)}>
-                <Image
-                  source={{ uri: getFilePreview(pres.fileId, pres.fileType) }} // Thumbnail preview
-                  className="w-24 h-24 rounded-lg"
-                />
+                {getFilePreview(pres.fileId, pres.fileType) && ( // Check if file URI exists
+                  <Image
+                    source={{ uri: getFilePreview(pres.fileId, pres.fileType) }} // Thumbnail preview
+                    className="w-24 h-24 rounded-lg"
+                  />
+                )}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => toggleStatus(pres)}
                 className="mt-2 bg-green-600 px-3 py-1 rounded"
               >
-                <Text className="text-white">Set Active</Text>
+                <Text className="text-white font-rbold">Set Active</Text>
               </TouchableOpacity>
             </View>
           ))}
