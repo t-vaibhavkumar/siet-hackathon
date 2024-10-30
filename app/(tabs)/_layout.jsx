@@ -61,15 +61,19 @@ const TabLayout = () => {
           }}
         />
         <Tabs.Screen
+
           name="charts"
           options={{
             title: "Charts",
+
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark}
+                icon={icons.data}
                 color={color}
+
                 name="Charts"
+
                 focused={focused}
               />
             ),
